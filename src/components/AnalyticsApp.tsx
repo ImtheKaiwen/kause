@@ -21,7 +21,7 @@ export default function AnalyticsApp() {
   const [settingsEye, setSettingsEye] = useState((localStorage.getItem('kause_eyeInterval') || '20m').replace('m', ''));
   const [settingsPosture, setSettingsPosture] = useState((localStorage.getItem('kause_postureInterval') || '15m').replace('m', ''));
   const [saveSuccess, setSaveSuccess] = useState(false);
-  const [kauseId, setKauseId] = useState(localStorage.getItem('kause_id') || '');
+  const [kauseId] = useState(localStorage.getItem('kause_id') || '');
   const [updateReady, setUpdateReady] = useState(false);
 
   useEffect(() => {
@@ -642,6 +642,17 @@ export default function AnalyticsApp() {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
               Switch Account
             </button>
+            <button 
+              onClick={() => {
+                if (window.electron?.quitApp) {
+                  window.electron.quitApp();
+                }
+              }}
+              className="flex items-center gap-3 text-[#FF5F56] hover:bg-red-50 px-4 py-2.5 rounded-full text-xs font-bold transition-colors"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+              Quit Kause
+            </button>
           </div>
         </div>
       </div>
@@ -651,6 +662,23 @@ export default function AnalyticsApp() {
         <div className="absolute top-0 left-0 w-full h-12" style={{ WebkitAppRegion: 'drag' } as any}></div>
 
         <div className="px-10 pt-12 pb-10 relative z-20" style={{ WebkitAppRegion: 'no-drag' } as any}>
+          {updateReady && (
+            <div className="mb-6 bg-blue-500 text-white px-6 py-4 rounded-2xl shadow-xl shadow-blue-500/20 flex items-center justify-between animate-in slide-in-from-top-4 fade-in duration-300">
+              <div className="flex items-center gap-3">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <div>
+                  <h4 className="font-bold text-sm">Update Available</h4>
+                  <p className="text-xs text-blue-100">A new version of Kause has been downloaded.</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => window.electron?.installUpdate && window.electron.installUpdate()}
+                className="bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
+              >
+                Restart & Install
+              </button>
+            </div>
+          )}
           {renderContent()}
         </div>
       </div>

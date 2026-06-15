@@ -130,6 +130,10 @@ ipcMain.on('reset-app', () => {
   }
 });
 
+ipcMain.on('quit-app', () => {
+  app.quit();
+});
+
 ipcMain.on('save-settings', (event, id, settings) => {
   if (!id) return;
   const settingsFile = path.join(app.getPath('userData'), `settings_${id}.json`);

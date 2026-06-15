@@ -23,6 +23,7 @@ declare global {
       onSettingsUpdated: (callback: () => void) => void;
       onUpdateDownloaded: (callback: () => void) => void;
       installUpdate: () => void;
+      quitApp: () => void;
       removeAllListeners: (channel: string) => void;
       saveSettings: (id: string, settings: any) => void;
       getSettings: (id: string) => Promise<any>;

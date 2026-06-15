@@ -22,6 +22,7 @@ contextBridge.exposeInMainWorld('electron', {
   setKauseId: (id) => ipcRenderer.send('set-kause-id', id),
   downloadRecoveryId: (content) => ipcRenderer.invoke('download-recovery-id', content),
   resetApp: () => ipcRenderer.send('reset-app'),
+  quitApp: () => ipcRenderer.send('quit-app'),
   onResetApp: (callback) => {
     ipcRenderer.on('reset-to-onboarding', () => callback());
   },
