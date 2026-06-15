@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  body {
+    @apply bg-transparent m-0 p-0 overflow-hidden font-sans text-pure-white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Allow text selection to be disabled by default for app feel */
+* {
+  user-select: none;
+  -webkit-user-drag: none;
+}
