@@ -42,15 +42,12 @@ function createWindow() {
   mainWindow.setAlwaysOnTop(true, 'screen-saver');
   mainWindow.setIgnoreMouseEvents(true, { forward: true });
 
-  // ALWAYS load Vite Dev Server in development, to ensure new React code is used!
   if (!app.isPackaged) {
     mainWindow.loadURL('http://localhost:5173');
+    mainWindow.webContents.openDevTools({ mode: 'detach' });
   } else {
     mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
   }
-
-  // Open DevTools automatically to see why timer isn't ticking
-  mainWindow.webContents.openDevTools({ mode: 'detach' });
 }
 
 app.whenReady().then(() => {
